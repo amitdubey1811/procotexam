@@ -1,0 +1,26 @@
+
+{
+    "name":"procotexam",
+    "description":"Do proctoring during online exams",
+   
+    "version":"1.0",
+    "manifest_version":3,
+    "action":{
+        "default_popup":"popup.html",
+        "default_icon":"logo.jpg"
+    },
+    "permissions": [
+        "activeTab",
+        "audio",
+        "video",
+        "storage",
+        "tabs",
+        "notifications",
+        "webRequest",
+        "contextMenus",
+        "clipboardWrite",
+        "management"
+      ]
+    
+
+}
