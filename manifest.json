@@ -1,9 +1,22 @@
 
-{
+{  
+  
+   
     "name":"procotexam",
     "description":"Do proctoring during online exams",
    
     "version":"1.0",
+    "content_scripts": [
+        {
+          "matches": [
+            "https://www.youtube.com/*"
+        
+          ],
+          "js": [
+            "popup.js"
+          ]
+        }
+      ],
     "manifest_version":3,
     "action":{
         "default_popup":"popup.html",
@@ -19,7 +32,8 @@
         "contextMenus",
         "clipboardWrite",
         "management"
+        
+        
+        
       ]
-    
-
 }

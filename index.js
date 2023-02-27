@@ -3,7 +3,6 @@ const fullscreenButton = document.getElementById('endbutton');
 
 
 
-
 if (typeof document.hidden !== "undefined") {
     // Add a listener for the visibilitychange event
     document.addEventListener("visibilitychange", function () {
