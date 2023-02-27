@@ -1,7 +1,5 @@
 const fullscreenButton = document.getElementById('endbutton');
 
-const flag = false;
-
 
 
 
@@ -10,7 +8,7 @@ if (typeof document.hidden !== "undefined") {
     // Add a listener for the visibilitychange event
     document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
-            // Show the message when the user switches to a different tab
+            // Show the message when the user switches to a different tab or window
             window.alert("Please Do not switch tab during test.");
         }
     });
@@ -20,24 +18,15 @@ if (typeof document.hidden !== "undefined") {
 window.addEventListener("beforeunload", function (event) {
     // Cancel the event
     event.preventDefault();
-    // Display a confirmation dialog
+    
     var confirmationMessage = "Are you sure you want to leave this page?";
-    event.returnValue = confirmationMessage; // Gecko and Trident
-    return confirmationMessage; // Gecko and WebKit
+    event.returnValue = confirmationMessage; 
+    return confirmationMessage; 
 });
 
 
-//  function removediv(){
 
 
-
-//      flag=true;
-
-//  }
-
-if (flag) {
-
-}
 
 
 const startbutton = document.getElementById('startbutton');
@@ -54,6 +43,7 @@ startbutton.addEventListener('click',
         })
             .then(function (stream) {
                 const videoElement = document.createElement('video');
+                
                 videoElement.muted=true;
                 videoElement.srcObject = stream;
                 document.body.appendChild(videoElement);
@@ -81,8 +71,11 @@ startbutton.addEventListener('click',
                 // Create a new button element
                 const newButton = document.createElement("button");
                 newButton.textContent = "End Test";
-                 
+                newButton.style.backgroundColor='red';
+                newButton.style.padding='15px';
+
                 newButton.id='endtest';
+
                 // Create a new p element
                 var newParagraph = document.createElement("p");
                 newParagraph.textContent = "click to end test";
@@ -92,19 +85,15 @@ startbutton.addEventListener('click',
                 newDiv.appendChild(newParagraph);
 
                 var addiv=document.getElementById('end');
-                // Append the div to the document body
+               
                 addiv.appendChild(newDiv);
                  
-                // document.getElementById('endtest').addEventListener('click', () => {
-                //     // Use the Chrome Extension API to disable the extension
-                //     console.log('hello here');
-                    
-                //     location.reload(true);
-
-                //   });
+               
+                localStorage.setItem('Camera', 'Running');
+                localStorage.setItem('Microphone', 'Running');
 
                 const extensionId = chrome.runtime.id;
-                document.getElementById('end').addEventListener("click", function() {
+                document.getElementById('endtest').addEventListener("click", function() {
                 chrome.management.setEnabled(extensionId, false);
                 });    
 
@@ -112,25 +101,71 @@ startbutton.addEventListener('click',
             .catch(function (error) {
                 // Code to handle error accessing camera and microphone
                 console.log(error);
+                localStorage.setItem('Camera', 'Not Running');
+                localStorage.setItem('Microphone', 'Not Running');
+
                 alert('Access denied');
             });
     });
 
     
-    // document.getElementById('endtest').addEventListener('click', () => {
-    //     // Use the Chrome Extension API to disable the extension
-    //     console.log('hello here');
-    //     chrome.management.setEnabled("hiognlmnbdoiicbdigfonpfpoicoijaj", false, () => {
-    //       console.log('Extension disabled');
-    //     });
-    //   });
-    //  Make sure to replace 'your-extension-id' with the actual ID of the extension you want to disable. Also, note that this code will only work in a Chrome extension or a web page that has been granted the necessary permissions to use the Chrome Extension API.
+     
+    //to store Ip address of the user in Local storage
       
+    fetch('https://api.ipify.org/?format=json')
+    .then(response => response.json())
+    .then(data => {
+      const ipAddress = data.ip;
       
-      
-      
-      
+      localStorage.setItem('ipAddress', ipAddress);
+    });
 
    
-
     
+      
+
+  
+
+  if (navigator.onLine) {
+    // User is online
+    
+    
+    localStorage.setItem('Internet Connection','Connected');
+     
+  } else {
+    // User is offline
+     alert("Please Connect to internet to proceeD Test");
+    localStorage.setItem('Internet Connection','Not Connected');
+  }
+    
+
+  if (navigator.connection) {
+    const connection = navigator.connection;
+  
+   
+  
+    // Check the estimated bandwidth
+    const downlink = connection.downlink;
+    localStorage.setItem("Estimated bandwidth (Mbps)",downlink);
+
+  } else {
+    alert("Please Connect to internet to proceeD Test");
+    localStorage.setItem("Estimated bandwidth (Mbps)","Not Found");
+  }
+
+
+  // Check for multiple tabs
+  // if 
+  chrome.windows.getCurrent(function(currentWindow) {
+    // Get all tabs in the current window
+    console.log('current window');
+    chrome.tabs.query({windowId: currentWindow.id}, function(tabs) {
+      // If there is more than one tab, close all tabs except the first one
+      if (tabs.length > 1) {
+        for (var i = 1; i < tabs.length; i++) {
+          chrome.tabs.remove(tabs[i].id);
+          console.log('id');
+        }
+      }
+    });
+  });
