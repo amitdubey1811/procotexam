@@ -11,18 +11,27 @@ Implemented features-
 
 Extension will work on selected URLs only which is given already.For this, test pages are "https://codeforces.com/",  "https://www.codechef.com/","https://github.com/"
 and default time for test is in between 15:00 to 15:45.
+
 Extension will work only in the given time duration.
+
 Test will be done in Full Screen Mode.
+
 A pop message on changing Tab.
+
 Test window will contain only one tab at start if there is many every other tab will be closed.
+
 On clicking “end test” button extension will be disable.
+
 Requirements check for audio, video and Internet connection.
+
 Store user related data and requirements status in local storage.
+
 
 
 Additional features-
 
 A start button to start the test.
+
 Live video of user on the top right screen.
 
 
