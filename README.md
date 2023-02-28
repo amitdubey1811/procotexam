@@ -3,16 +3,18 @@
 A chrome Extension that helps to manage the test. It tests the user requirements and then enable the user to take the test in Full Screen Mode. 
 This extension checks user internet connection, audio and video requirements, Internet speed and IP address. 
 User should get an alert message if user switch the tab or switch the window or get into another Application. 
-On opening test window user will be able to see his/her live video on the top right corner of the screen.
+On opening test window user will be able to see his/her live video on the top right corner of the screen.Test will start only on test sites and in given time interval.
+
 
 
 Implemented features-
 
-Extension will work on selected URLs only which is given already.
+Extension will work on selected URLs only which is given already.For this, test pages are "https://codeforces.com/",  "https://www.codechef.com/","https://github.com/"
+and default time for test is in between 15:00 to 15:45.
 Extension will work only in the given time duration.
 Test will be done in Full Screen Mode.
 A pop message on changing Tab.
-Test window will contain only one tab at start if there is many every other tab will be closed
+Test window will contain only one tab at start if there is many every other tab will be closed.
 On clicking “end test” button extension will be disable.
 Requirements check for audio, video and Internet connection.
 Store user related data and requirements status in local storage.
